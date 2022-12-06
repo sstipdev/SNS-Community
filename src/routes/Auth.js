@@ -1,4 +1,4 @@
-import { authService } from "fbase";
+// import { authService } from "fbase";
 // 파베 최신버전으로 인하여 아래처럼 임포트를 해주어야 사용할수 있다.
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
@@ -7,6 +7,7 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newAccount, setNewAccount] = useState(true);
+  const [error, setError] = useState("");
   // 비구조화 할당을 통해서 사용자가 입력한 name값이 일치한지 확인한다.
   const onChange = (e) => {
     const {
@@ -35,15 +36,20 @@ const Auth = () => {
       console.log(data);
     } catch (error) {
       console.log(error);
+      setError(error.message);
     }
   };
+  // state account가 true일 경우 false로 업데이트 해준다.
+  const toggleAccount = () => setNewAccount((prev) => !prev);
   return (
     <div>
       <form onSubmit={onSubmit}>
         <input onChange={onChange} name="email" type="email" placeholder="이메일" required value={email} />
         <input onChange={onChange} name="password" type="password" placeholder="비밀번호" required value={password} />
         <input type="submit" value={newAccount ? "계정생성" : "로그인"} />
+        {error}
       </form>
+      <span onClick={toggleAccount}>{newAccount ? "로그인" : "계정생성"}</span>
       <div>
         <button>Google 로그인</button>
         <button>Gitgub 로그인</button>
