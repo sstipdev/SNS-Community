@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import AppRouter from "./Router";
-import { authSErvice } from "fbase";
+import { authService } from "fbase";
 
 function App() {
   // eslint-disable-next-line
-  const [isLoggedIn, setIsLoggedIn] = useState(authSErvice.currentUser);
+  const [isLoggedIn, setIsLoggedIn] = useState(authService.currentUser);
   return (
     <>
       <AppRouter isLoggedIn={isLoggedIn} />
