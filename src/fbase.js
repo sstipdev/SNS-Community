@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import * as firebase from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
@@ -11,6 +11,7 @@ const firebaseConfig = {
 };
 
 // eslint-disable-next-line
-const app = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+export const firebaseInstance = firebase;
 
 export const authService = getAuth();
