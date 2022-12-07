@@ -1,30 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { dbService } from "fbase";
-import { addDoc, collection, getDocs, query } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, onSnapshot, orderBy, getFirestore } from "firebase/firestore";
 
-const Home = () => {
+const Home = ({ userObj }) => {
   const [sns, setSns] = useState("");
   const [info, setInfo] = useState([]);
-  const getInfo = async () => {
-    const q = query(collection(dbService, "SNS"));
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      const snsObj = {
-        ...doc.data(),
-        id: doc.id,
-      };
-      setInfo((prev) => [snsObj, ...prev]);
-    });
-  };
+  //   const getInfo = async () => {
+  //     const q = query(collection(dbService, "SNS"));
+  //     const querySnapshot = await getDocs(q);
+  //     querySnapshot.forEach((doc) => {
+  //       const snsObj = {
+  //         ...doc.data(),
+  //         id: doc.id,
+  //       };
+  //       setInfo((prev) => [snsObj, ...prev]);
+  //     });
+  //   };
+
   useEffect(() => {
-    getInfo();
+    // 실시간으로 데이터를 firebase 데이터베이스에서 가져오기
+    const q = query(collection(dbService, "SNS"), orderBy("createdAt", "desc"));
+    onSnapshot(q, (snapshot) => {
+      const snsArr = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setInfo(snsArr);
+    });
   }, []);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     // 파이어베이스 Missing or insufficient permissions 오류가 확인되어 firstore 규칙을 변경해서 해당 오류를 해결함
     await addDoc(collection(dbService, "SNS"), {
-      sns,
+      text: sns,
       createdAt: Date.now(),
+      creatorId: userObj.uid,
+      userName: userObj.displayName,
+      userEmail: userObj.email,
     });
     setSns("");
   };
@@ -34,7 +47,6 @@ const Home = () => {
     } = e;
     setSns(value);
   };
-  console.log(info);
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -44,7 +56,7 @@ const Home = () => {
       <div>
         {info.map((data) => (
           <div key={data.id}>
-            <h4>{data.sns}</h4>
+            <h4>{data.text}</h4>
           </div>
         ))}
       </div>
