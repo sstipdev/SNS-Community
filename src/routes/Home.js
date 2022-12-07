@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { dbService } from "fbase";
 import { addDoc, collection, getDocs, query, onSnapshot, orderBy, getFirestore } from "firebase/firestore";
+import Sns from "components/Sns";
 
 const Home = ({ userObj }) => {
   const [sns, setSns] = useState("");
@@ -55,9 +56,7 @@ const Home = ({ userObj }) => {
       </form>
       <div>
         {info.map((data) => (
-          <div key={data.id}>
-            <h4>{data.text}</h4>
-          </div>
+          <Sns key={data.id} snsObj={data} isOwner={data.creatorId === userObj.uid} />
         ))}
       </div>
     </div>
