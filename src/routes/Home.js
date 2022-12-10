@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { dbService } from "fbase";
-import { addDoc, collection, getDocs, query, onSnapshot, orderBy, getFirestore } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, onSnapshot, orderBy } from "firebase/firestore";
 import Sns from "components/Sns";
 
 const Home = ({ userObj }) => {

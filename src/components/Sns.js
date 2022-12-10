@@ -6,7 +6,8 @@ const Sns = ({ snsObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
   const [newSns, setNewSns] = useState(snsObj.text);
   const onDeleteClick = async () => {
-    const ok = window.confirm("삭제할꺼냐 ?");
+    // window.confirm > 브라우저상의 alret창을 커스텀 메세지로 추력할수 있고 , 예 아니요를 통해 true or false를 반환할수 있다.
+    const ok = window.confirm("해당 글을 삭제하실 건가요?");
     if (ok) {
       // snsObj.id를 정보를 얻어 sns 글들을 삭제할수 있음
       const snsTextInfo = doc(dbService, "SNS", `${snsObj.id}`);
@@ -46,8 +47,8 @@ const Sns = ({ snsObj, isOwner }) => {
           <h4>{snsObj.text}</h4>
           {isOwner && (
             <>
-              <button onClick={onDeleteClick}>삭제</button>
               <button onClick={toggleEditing}>수정</button>
+              <button onClick={onDeleteClick}>삭제</button>
             </>
           )}
         </>
