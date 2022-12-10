@@ -45,6 +45,7 @@ const Sns = ({ snsObj, isOwner }) => {
       ) : (
         <>
           <h4>{snsObj.text}</h4>
+          {/* Home.js 의 fileUrl true 일 경우 snsObj.fileUrl width와 height의 값을 조정 src 값또한 부여해야함 */}
           {isOwner && (
             <>
               <button onClick={toggleEditing}>수정</button>
