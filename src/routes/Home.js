@@ -51,12 +51,14 @@ const Home = ({ userObj }) => {
     });
     setSns("");
   };
+
   const onChange = (e) => {
     const {
       target: { value },
     } = e;
     setSns(value);
   };
+
   const onFileChange = (e) => {
     // file의 로그를 받고싶을때. e.target.files
     console.log(e.target.files);
@@ -102,4 +104,5 @@ const Home = ({ userObj }) => {
     </div>
   );
 };
+
 export default Home;
