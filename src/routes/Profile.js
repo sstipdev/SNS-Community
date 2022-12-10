@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { updateProfile } from "@firebase/auth";
 import { collection, getDocs, orderBy, query, where } from "@firebase/firestore";
 
-const Profile = ({ userObj }) => {
+const Profile = ({ userObj, refreshUser }) => {
   let history = useHistory();
   const [newDpName, setNewDpName] = useState(userObj.displayName);
   const onLogOutClick = () => {
@@ -34,9 +34,8 @@ const Profile = ({ userObj }) => {
     e.preventDefault();
     // userObj.displayName(원래닉네임) 과 newDpName(변경할 닉네임)이 서로 동일하지 않다면 true 코드 실행
     if (userObj.displayName !== newDpName) {
-      await updateProfile(userObj, {
-        displayName: newDpName,
-      });
+      await updateProfile(userObj, { displayName: newDpName });
+      refreshUser();
     }
   };
   return (
