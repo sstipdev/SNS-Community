@@ -6,6 +6,7 @@ import Sns from "components/Sns";
 const Home = ({ userObj }) => {
   const [sns, setSns] = useState("");
   const [info, setInfo] = useState([]);
+  const [file, setFile] = useState();
   //   const getInfo = async () => {
   //     const q = query(collection(dbService, "SNS"));
   //     const querySnapshot = await getDocs(q);
@@ -54,12 +55,23 @@ const Home = ({ userObj }) => {
     const {
       target: { files },
     } = e;
+    // 파일을 첨부하는 input에 있는 모든 파일중에 첫번째 파일만 받을꺼임
     const theFile = files[0];
+    // fileReader를 생성
     const reader = new FileReader();
-    reader.onloadend = (finish) => console.log(finish);
+    reader.onloadend = (finish) => {
+      // 구조분해 할당으로 setFile state 변경함수에 파일 데이터 경로를 업데이트함
+      const {
+        currentTarget: { result },
+      } = finish;
+      setFile(result);
+    };
     // file 용량이 1mb 이상인것들은 불러올수가 없음
     reader.readAsDataURL(theFile);
   };
+
+  // 선택한 파일을 지우는 기능
+  const clearImg = () => setFile(null);
 
   return (
     <div>
@@ -67,6 +79,12 @@ const Home = ({ userObj }) => {
         <input value={sns} onChange={onChange} type="text" placeholder="할말을 적어주세요" maxLength={120} />
         <input type="file" accept="image/*" onChange={onFileChange} />
         <input type="submit" value="게시" />
+        {file && (
+          <div>
+            <img src={file} width="50px" height={"50px"} />
+            <button onClick={clearImg}>사진 제거</button>
+          </div>
+        )}
       </form>
       <div>
         {info.map((data) => (
