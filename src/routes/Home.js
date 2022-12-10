@@ -48,10 +48,24 @@ const Home = ({ userObj }) => {
     } = e;
     setSns(value);
   };
+  const onFileChange = (e) => {
+    // file의 로그를 받고싶을때. e.target.files
+    console.log(e.target.files);
+    const {
+      target: { files },
+    } = e;
+    const theFile = files[0];
+    const reader = new FileReader();
+    reader.onloadend = (finish) => console.log(finish);
+    // file 용량이 1mb 이상인것들은 불러올수가 없음
+    reader.readAsDataURL(theFile);
+  };
+
   return (
     <div>
       <form onSubmit={onSubmit}>
         <input value={sns} onChange={onChange} type="text" placeholder="할말을 적어주세요" maxLength={120} />
+        <input type="file" accept="image/*" onChange={onFileChange} />
         <input type="submit" value="게시" />
       </form>
       <div>
