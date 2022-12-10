@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { dbService } from "fbase";
+import { v4 as uuidv4 } from "uuid";
+import { ref, uploadString } from "@firebase/storage";
+import { storageService } from "fbase";
 import { addDoc, collection, getDocs, query, onSnapshot, orderBy } from "firebase/firestore";
 import Sns from "components/Sns";
 
@@ -33,15 +36,18 @@ const Home = ({ userObj }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    const fileRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
+    const response = await uploadString(fileRef, file, "data_url");
+    console.log(response);
     // 파이어베이스 Missing or insufficient permissions 오류가 확인되어 firstore 규칙을 변경해서 해당 오류를 해결함
-    await addDoc(collection(dbService, "SNS"), {
-      text: sns,
-      createdAt: Date.now(),
-      creatorId: userObj.uid,
-      userName: userObj.displayName,
-      userEmail: userObj.email,
-    });
-    setSns("");
+    // await addDoc(collection(dbService, "SNS"), {
+    //   text: sns,
+    //   createdAt: Date.now(),
+    //   creatorId: userObj.uid,
+    //   userName: userObj.displayName,
+    //   userEmail: userObj.email,
+    // });
+    // setSns("");
   };
   const onChange = (e) => {
     const {
