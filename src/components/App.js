@@ -1,6 +1,23 @@
 import React, { useEffect, useState } from "react";
 import AppRouter from "./Router";
 import { authService } from "fbase";
+import styled from "styled-components";
+import { Switch } from "@mui/material";
+
+const Appbox = styled.div`
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 10px;
+`;
+
+const DescText = styled.p`
+  font-size: 18px;
+  margin: 40px 0 0px 0;
+`;
 
 function App() {
   const [init, setInit] = useState(false);
@@ -27,10 +44,12 @@ function App() {
     setNewName(user.displayName);
   };
   return (
-    <>
+    <Appbox>
+      <Switch defaultChecked id="ColorChangeBtn" />
+      <DescText>커뮤니티</DescText>
       {init ? <AppRouter refreshUser={refreshUser} isLoggedIn={Boolean(userObj)} userObj={userObj} /> : "정보를 불러오는중..."}
       <footer>&copy; {new Date().getFullYear()} sstipdev All rights reserved.</footer>
-    </>
+    </Appbox>
   );
 }
 

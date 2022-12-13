@@ -1,0 +1,23 @@
+@import "snsLogin.css";
+
+body {
+  margin: 0;
+}
+
+.idBox,
+.pwBox {
+  width: 100%;
+}
+
+.createBtn,
+.loginBtn {
+  width: 100%;
+}
+
+#createBtn {
+  margin-top: 20px;
+}
+
+#loginBtn {
+  margin: 5px 0 25px 0px;
+}

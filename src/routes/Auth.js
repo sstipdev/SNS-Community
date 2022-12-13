@@ -3,6 +3,7 @@ import { authService } from "fbase";
 // 파베 최신버전으로 인하여 아래처럼 임포트를 해주어야 사용할수 있다.
 import { GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from "firebase/auth";
 import React from "react";
+import { AiFillGithub } from "react-icons/ai";
 
 const Auth = () => {
   const onSocialClick = async (e) => {
@@ -25,12 +26,12 @@ const Auth = () => {
   return (
     <div>
       <AuthForm />
-      <div>
-        <button name="google" onClick={onSocialClick}>
+      <div className="sns-login-box">
+        <button name="google" onClick={onSocialClick} className="social-button google" id="google-connect">
           Google 로그인
         </button>
-        <button name="github" onClick={onSocialClick}>
-          Gitgub 로그인
+        <button name="github" onClick={onSocialClick} class="social-button github" id="github-connect">
+          <AiFillGithub className="githubIcon" /> <span>Gitgub 로그인</span>
         </button>
       </div>
     </div>
