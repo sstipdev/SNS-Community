@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AppRouter from "./Router";
 import { authService } from "fbase";
 import styled from "styled-components";
-import { Switch } from "@mui/material";
+import { Switch, withTheme } from "@mui/material";
 
 const Appbox = styled.div`
   display: flex;
@@ -25,6 +25,7 @@ function App() {
   // eslint-disable-next-line
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
+  const [color, setColor] = useState("white");
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
@@ -43,9 +44,14 @@ function App() {
     const user = authService.currentUser;
     setNewName(user.displayName);
   };
+
+  const changeColor = () => {
+    color === "white" ? setColor("black") : setColor("white");
+  };
+
   return (
-    <Appbox>
-      <Switch defaultChecked id="ColorChangeBtn" />
+    <Appbox style={{ backgroundColor: color }}>
+      <Switch defaultChecked id="ColorChangeBtn" onClick={changeColor} />
       <DescText>커뮤니티</DescText>
       {init ? <AppRouter refreshUser={refreshUser} isLoggedIn={Boolean(userObj)} userObj={userObj} /> : "정보를 불러오는중..."}
       <footer>&copy; {new Date().getFullYear()} sstipdev All rights reserved.</footer>

@@ -23,6 +23,7 @@ const Auth = () => {
       // const token = credential.accessToken;
     }
   };
+
   return (
     <div>
       <AuthForm />
