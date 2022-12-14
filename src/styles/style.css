@@ -4,6 +4,10 @@ body {
   margin: 0;
 }
 
+footer {
+  margin-top: 30px;
+}
+
 .idBox,
 .pwBox {
   width: 100%;
@@ -24,4 +28,18 @@ body {
 
 #main-login-box {
   max-width: 80%;
+}
+
+.nameInput {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#changeName {
+  width: 100%;
+  margin: 15px 0 10px 0;
+}
+
+#logout {
+  width: 267px;
 }

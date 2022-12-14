@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { updateProfile } from "@firebase/auth";
 import { collection, getDocs, orderBy, query, where } from "@firebase/firestore";
+import { TextField, Button } from "@mui/material";
 
 const Profile = ({ userObj, refreshUser }) => {
   let history = useHistory();
@@ -41,10 +42,14 @@ const Profile = ({ userObj, refreshUser }) => {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <input onChange={onChange} type="text" placeholder="닉네임" value={newDpName} />
-        <input type="submit" value="닉네임 변경" />
+        <TextField id="standard-basic" variant="standard" onChange={onChange} type="text" placeholder="닉네임" value={newDpName} className="nameInput" />
+        <Button variant="contained" type="submit" id="changeName">
+          닉네임 변경
+        </Button>
       </form>
-      <button onClick={onLogOutClick}>로그아웃</button>
+      <Button variant="outlined" color="error" onClick={onLogOutClick} id="logout">
+        로그아웃
+      </Button>
     </>
   );
 };
