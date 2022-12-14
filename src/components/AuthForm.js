@@ -7,6 +7,11 @@ const FormBox = styled.div`
   margin-top: 60px;
 `;
 
+const ErrorBox = styled.span`
+  color: red;
+  font-size: 12px;
+`;
+
 const AuthForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,7 +57,6 @@ const AuthForm = () => {
     <FormBox>
       <form onSubmit={onSubmit}>
         <TextField
-          style={{ margin: "500px;" }}
           className="idBox"
           id="outlined-basic"
           variant="outlined"
@@ -74,10 +78,10 @@ const AuthForm = () => {
           required
           value={password}
         />
+        <ErrorBox>{error}</ErrorBox>
         <Button id="createBtn" className="createBtn" variant="contained" type="submit">
           {newAccount ? "계정생성" : "로그인"}
         </Button>
-        {error}
       </form>
       <Button id="loginBtn" className="loginBtn" variant="outlined" onClick={toggleAccount}>
         {newAccount ? "로그인" : "계정생성"}

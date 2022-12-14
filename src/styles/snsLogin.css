@@ -20,6 +20,7 @@
   -ms-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 #google-connect:hover {
@@ -58,6 +59,7 @@
   -ms-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 #github-connect:hover {
@@ -68,10 +70,4 @@
   position: relative;
   right: 155px;
   font-size: 27px;
-}
-
-.github > span {
-  position: relative;
-  bottom: 5px;
-  right: 12px;
 }

@@ -25,14 +25,15 @@ const Auth = () => {
   };
 
   return (
-    <div>
+    <div id="main-login-box">
       <AuthForm />
       <div className="sns-login-box">
         <button name="google" onClick={onSocialClick} className="social-button google" id="google-connect">
           Google 로그인
         </button>
         <button name="github" onClick={onSocialClick} class="social-button github" id="github-connect">
-          <AiFillGithub className="githubIcon" /> <span>Gitgub 로그인</span>
+          {" "}
+          <span>Gitgub 로그인</span>
         </button>
       </div>
     </div>
