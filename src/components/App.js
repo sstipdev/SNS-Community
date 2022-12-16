@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AppRouter from "./Router";
 import { authService } from "fbase";
 import styled from "styled-components";
-import { Switch, withTheme } from "@mui/material";
+import { Switch } from "@mui/material";
 
 const Appbox = styled.div`
   display: flex;

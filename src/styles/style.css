@@ -43,3 +43,43 @@ footer {
 #logout {
   width: 267px;
 }
+
+.textFrom {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#textForm-input {
+  width: 300px;
+  text-align: center;
+}
+
+#textForm-btn {
+  margin-left: 10px;
+}
+
+.user-text_info {
+  border-bottom: 0.2px solid grey;
+}
+
+.textinfo {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+#edit,
+#delete,
+#update,
+#cancle {
+  border: none;
+  padding: 10px 30px;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+  color: green;
+  margin-bottom: 30px;
+}

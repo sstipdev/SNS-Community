@@ -1,6 +1,7 @@
 import { dbService } from "fbase";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
+import { TextField } from "@mui/material";
 
 const Sns = ({ snsObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
@@ -37,22 +38,28 @@ const Sns = ({ snsObj, isOwner }) => {
       {editing ? (
         <>
           <form onSubmit={onSubmit}>
-            <input type="text" placeholder="수정할 내용을 기입하세요." value={newSns} required onChange={onChange} />
-            <input type="submit" value="업데이트" />
+            <TextField variant="standard" type="text" placeholder="수정할 내용을 기입하세요." value={newSns} required onChange={onChange} />
+            <input id="update" type="submit" value="업데이트" />
           </form>
-          <button onClick={toggleEditing}>취소</button>
+          <button id="cancle" onClick={toggleEditing}>
+            취소
+          </button>
         </>
       ) : (
-        <>
+        <div className="user-text_info">
           <h4>{snsObj.text}</h4>
           {/* Home.js 의 fileUrl true 일 경우 snsObj.fileUrl width와 height의 값을 조정 src 값또한 부여해야함 */}
           {isOwner && (
             <>
-              <button onClick={toggleEditing}>수정</button>
-              <button onClick={onDeleteClick}>삭제</button>
+              <button id="edit" onClick={toggleEditing}>
+                수정
+              </button>
+              <button id="delete" onClick={onDeleteClick}>
+                삭제
+              </button>
             </>
           )}
-        </>
+        </div>
       )}
     </div>
   );

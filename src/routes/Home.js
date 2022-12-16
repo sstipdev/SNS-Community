@@ -20,9 +20,9 @@ const Home = ({ userObj }) => {
   }, []);
 
   return (
-    <div>
+    <div className="textFrom">
       <SnsFacktory userObj={userObj} />
-      <div>
+      <div className="textinfo">
         {info.map((data) => (
           <Sns key={data.id} snsObj={data} isOwner={data.creatorId === userObj.uid} />
         ))}
