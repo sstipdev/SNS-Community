@@ -5,6 +5,7 @@ import { addDoc, collection } from "firebase/firestore";
 
 const SnsFacktory = ({ userObj }) => {
   const [sns, setSns] = useState("");
+  const [attachment, setAttachment] = useState("");
   const onSubmit = async (e) => {
     e.preventDefault();
     // 현재 firebase 버킷생성 구글오류가 계속 출력되어 이미지업로드 기능구현은 불가
@@ -31,7 +32,12 @@ const SnsFacktory = ({ userObj }) => {
     const theFile = files[0];
     // reader 를 생성
     const reader = new FileReader();
-    reader.onloadend = (finishedEvent) => console.log(finishedEvent);
+    reader.onloadend = (finishedEvent) => {
+      const {
+        currentTarget: { result },
+      } = finishedEvent;
+      return setAttachment(result);
+    };
     // readAsDataURL을 사용해서 파일을 읽음
     reader.readAsDataURL(theFile);
   };
@@ -43,6 +49,8 @@ const SnsFacktory = ({ userObj }) => {
     setSns(value);
   };
 
+  const onClearPhoto = () => setAttachment(null);
+
   return (
     <form onSubmit={onSubmit}>
       <TextField id="textForm-input" variant="standard" value={sns} onChange={onChange} type="text" placeholder="할말을 적어주세요" maxLength={120} />
@@ -50,6 +58,11 @@ const SnsFacktory = ({ userObj }) => {
       <Button id="textForm-btn" variant="outlined" type="submit">
         게시
       </Button>
+      {attachment && (
+        <div>
+          <img src={attachment} width="50px" height="50px" /> <button onClick={onClearPhoto}>사진제거</button>
+        </div>
+      )}
     </form>
   );
 };
