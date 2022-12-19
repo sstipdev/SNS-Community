@@ -8,10 +8,12 @@ import { TextField, Button } from "@mui/material";
 const Profile = ({ userObj, refreshUser }) => {
   let history = useHistory();
   const [newDpName, setNewDpName] = useState(userObj.displayName);
+
   const onLogOutClick = () => {
     authService.signOut();
     history.push("/");
   };
+
   const getMySns = async () => {
     // where 로 필터링을 할수있다.
     const q = query(collection(dbService, "SNS"), where("creatorId", "==", userObj.uid), orderBy("createdAt"));
@@ -20,6 +22,7 @@ const Profile = ({ userObj, refreshUser }) => {
       console.log(doc.id, " => ", doc.data());
     });
   };
+
   useEffect(() => {
     getMySns();
   }, []);
@@ -39,6 +42,7 @@ const Profile = ({ userObj, refreshUser }) => {
       refreshUser();
     }
   };
+
   return (
     <>
       <form onSubmit={onSubmit}>

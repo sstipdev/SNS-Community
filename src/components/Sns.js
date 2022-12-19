@@ -6,6 +6,7 @@ import { TextField } from "@mui/material";
 const Sns = ({ snsObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
   const [newSns, setNewSns] = useState(snsObj.text);
+
   const onDeleteClick = async () => {
     // window.confirm > 브라우저상의 alret창을 커스텀 메세지로 추력할수 있고 , 예 아니요를 통해 true or false를 반환할수 있다.
     const ok = window.confirm("해당 글을 삭제하실 건가요?");
@@ -18,6 +19,7 @@ const Sns = ({ snsObj, isOwner }) => {
   };
 
   const toggleEditing = () => setEditing((prev) => !prev);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     console.log(snsObj, newSns);
@@ -33,6 +35,7 @@ const Sns = ({ snsObj, isOwner }) => {
     } = e;
     setNewSns(value);
   };
+
   return (
     <div>
       {editing ? (

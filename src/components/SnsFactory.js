@@ -23,6 +23,19 @@ const SnsFacktory = ({ userObj }) => {
     setSns("");
   };
 
+  const onFileChange = (e) => {
+    const {
+      target: { files },
+    } = e;
+    // 파일을 갖음
+    const theFile = files[0];
+    // reader 를 생성
+    const reader = new FileReader();
+    reader.onloadend = (finishedEvent) => console.log(finishedEvent);
+    // readAsDataURL을 사용해서 파일을 읽음
+    reader.readAsDataURL(theFile);
+  };
+
   const onChange = (e) => {
     const {
       target: { value },
@@ -33,6 +46,7 @@ const SnsFacktory = ({ userObj }) => {
   return (
     <form onSubmit={onSubmit}>
       <TextField id="textForm-input" variant="standard" value={sns} onChange={onChange} type="text" placeholder="할말을 적어주세요" maxLength={120} />
+      <input type="file" accept="image/*" onChange={onFileChange} />
       <Button id="textForm-btn" variant="outlined" type="submit">
         게시
       </Button>
