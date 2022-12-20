@@ -51,6 +51,7 @@ const Sns = ({ snsObj, isOwner }) => {
       ) : (
         <div className="user-text_info">
           <h4>{snsObj.text}</h4>
+          {snsObj.fileUrl && <img src={snsObj.fileUrl} width="50px" height="50px" />}
           {/* Home.js 의 fileUrl true 일 경우 snsObj.fileUrl width와 height의 값을 조정 src 값또한 부여해야함 */}
           {isOwner && (
             <>

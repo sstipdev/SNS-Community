@@ -2,29 +2,34 @@ import { dbService, storageService } from "fbase";
 import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import { addDoc, collection } from "firebase/firestore";
-import { ref, uploadString } from "@firebase/storage";
+import { ref, uploadString, getDownloadURL } from "@firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
 const SnsFacktory = ({ userObj }) => {
   const [sns, setSns] = useState("");
   const [attachment, setAttachment] = useState("");
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    // 현재 firebase 버킷생성 구글오류가 계속 출력되어 이미지업로드 기능구현은 불가
-    const fileRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
-    const response = await uploadString(fileRef, attachment, "data_url");
-    // const fileUrl = await response.ref.getDownloadURL();
-    console.log(response);
-
-    // 파이어베이스 Missing or insufficient permissions 오류가 확인되어 firstore 규칙을 변경해서 해당 오류를 해결함
-    // await addDoc(collection(dbService, "SNS"), {
-    //   text: sns,
-    //   createdAt: Date.now(),
-    //   creatorId: userObj.uid,
-    //   userName: userObj.displayName,
-    //   userEmail: userObj.email,
-    // });
+    let fileUrl = "";
+    if (attachment != "") {
+      // 현재 firebase 버킷생성 구글오류가 계속 출력되어 이미지업로드 기능구현은 불가
+      const fileRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
+      const response = await uploadString(fileRef, attachment, "data_url");
+      fileUrl = await getDownloadURL(ref(storageService, fileRef));
+      // 파이어베이스 Missing or insufficient permissions 오류가 확인되어 firstore 규칙을 변경해서 해당 오류를 해결함
+    }
+    const snsObj = {
+      text: sns,
+      createdAt: Date.now(),
+      creatorId: userObj.uid,
+      userName: userObj.displayName,
+      userEmail: userObj.email,
+      fileUrl,
+    };
+    await addDoc(collection(dbService, "SNS"), snsObj);
     setSns("");
+    setAttachment("");
   };
 
   const onFileChange = (e) => {
