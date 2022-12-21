@@ -1,5 +1,6 @@
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { ref, deleteObject } from "@firebase/storage";
 import React, { useState } from "react";
 import { TextField } from "@mui/material";
 
@@ -15,6 +16,9 @@ const Sns = ({ snsObj, isOwner }) => {
       const snsTextInfo = doc(dbService, "SNS", `${snsObj.id}`);
       // delete sns
       await deleteDoc(snsTextInfo);
+
+      const urlRef = ref(storageService, snsObj.fileUrl);
+      await deleteObject(urlRef);
     }
   };
 
